@@ -1,34 +1,32 @@
-import "babel-polyfill";
-import Koa from 'koa'
-import ValidatorFactory from 'swagger-koa-validate'
-
+import "babel-polyfill"
+import Koa from "koa"
+import ValidatorFactory from "swagger-koa-validate"
+const $RefParser = require("json-schema-ref-parser")
 /*
  * Read the API, and init the validate
  */
-import * as fs from "fs-extra"
-const YAML = require('yamljs')
-const $RefParser = require('json-schema-ref-parser')
-var parser = new $RefParser()
-
-const specStr = fs.readFileSync(__dirname + '/../api/api.yaml', 'utf-8')
-const spec = YAML.parse(specStr)
-var validate = ValidatorFactory(spec)
-
 
 const app = new Koa()
+let parser = new $RefParser()
 
-app.use(async (ctx, next) => {
-    try {
+parser.dereference(__dirname + "/../api/api.yml", "utf-8").then(
+  spec => {
+    let validate = ValidatorFactory(spec)
+    app.use(async (ctx, next) => {
+      try {
         await next()
-    } catch (error) {
+      } catch (error) {
         ctx.status = error.status || 400
         ctx.body = { message: error.message }
-        console.log('Error', error.status, error.message)
-    }
-})
-app.use(validate)
-app.use(ctx => {
-    ctx.body = 'hello world'
-})
+        console.log("Error", error.status, error.message)
+      }
+    })
+    app.use(validate)
+    app.use(ctx => {
+      ctx.body = "hello world"
+    })
+  },
+  err => console.log(err)
+)
 
 app.listen(3000)

@@ -24,7 +24,10 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "fs-extra": "^4.0.2",
+    "json-schema-ref-parser": "^4.0.4",
     "koa": "^2.4.1",
-    "swagger-koa-validate": "0.0.7"
+    "swagger-koa-validate": "0.0.7",
+    "yamljs": "^0.3.0"
   }
 }

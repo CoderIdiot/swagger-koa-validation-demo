@@ -1,19 +1,12 @@
 openapi: 3.0.0
 paths:
-  /user: 
-    get:
-      operationId: getUserList
-      parameters:
-        - in: header
-          name: id
-          required: true
-          schema:
-            type: integer
-            format: int64
-  /user?action=login: 
+  '/user':
+    $ref: "paths/user.yml" 
+
+  '/user?action=login': 
     post:
       operationId: login
-  /user/{id}:
+  '/user/{id}':
     get:
       operationId: getUserById
       parameters:
@@ -22,7 +15,7 @@ paths:
           schema:
             type: integer
             format: int64
-  /blog:
+  '/blog':
     get:
       operationId: getBlogsByPage
       parameters:
@@ -32,6 +25,3 @@ paths:
           schema:
             type: integer
             format: int64
-    
-
- 
