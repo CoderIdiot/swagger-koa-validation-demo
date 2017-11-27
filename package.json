@@ -23,6 +23,8 @@
     "babel-preset-env": "^1.6.1"
   },
   "dependencies": {
-    "koa": "^2.4.1"
+    "babel-polyfill": "^6.26.0",
+    "koa": "^2.4.1",
+    "swagger-koa-validate": "0.0.7"
   }
 }
